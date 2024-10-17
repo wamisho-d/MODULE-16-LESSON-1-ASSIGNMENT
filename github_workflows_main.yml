@@ -1,0 +1,31 @@
+# Task 3: Implement this branch in **main.yml** to run this branch in the pipeline
+# .github/workflows/main.yml
+
+name: CI/CD Pipeline
+
+on:
+   push:
+     branches:
+       - feature/tests # This triggers the workflow on push to the feature/tests branch
+
+jobs: 
+  build:
+    run-on: unbuntu-latest
+
+    steps:
+    
+      - name: Checkout code
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+      - uses: actions/setup/setup-python@v2
+      - with:
+          python-version: '3.x' # Specify the python version you are using
+ 
+      - name: Install dependencies 
+      run:
+        pip install -r requirements.txt # Ensure you have this file with your dependencies
+ 
+      - name: Run tests
+        run:
+          pytest # Run your tests using pytest
